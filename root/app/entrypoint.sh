@@ -6,6 +6,12 @@ SCREEN_NAME=irc
 SCREEN_FLAGS=-x
 KEY_PREFIX=command="screen $SCREEN_FLAGS $SCREEN_NAME",no-port-forwarding,no-X11-forwarding,no-pty
 
+echo "Starting SSH Server..."
+service ssh start
+
+echo "Switching to user account..."
+su user
+
 if [ -n "$AUTHORIZED_KEYS" ]; then
   mkdir -p $SSH_CONF
   chmod 700 $SSH_CONF
@@ -24,12 +30,6 @@ else
   (>&2 echo "ERROR: No AUTHORIZED_KEYS specified")
   exit 1
 fi
-
-echo "Starting SSH Server..."
-service ssh start
-
-echo "Switching to user account..."
-su user
 
 echo "Starting irssi in a screen session ($SCREEN_NAME)..."
 screen -S $SCREEN_NAME -d -m irssi

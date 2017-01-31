@@ -18,8 +18,6 @@ RUN sed -i \
 	-e 's~^#?PermitRootLogin.*~PermitRootLogin no~g' \
 	/etc/ssh/sshd_config
 
-RUN mkdir -p /var/run/sshd
-
 COPY root/ /
 RUN chmod a+x /app/entrypoint.sh
 
