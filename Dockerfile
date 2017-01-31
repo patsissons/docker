@@ -13,6 +13,7 @@ RUN apt-get update \
 ENV AUTHORIZED_KEYS=
 
 COPY root/ /
+RUN chmod a+x /app/entrypoint.sh
 
 EXPOSE 22
 
