@@ -14,6 +14,7 @@ ENV AUTHORIZED_KEYS=
 
 COPY root/ /
 RUN chmod a+x /app/entrypoint.sh
+RUN service ssh start
 
 EXPOSE 22
 
