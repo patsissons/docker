@@ -11,6 +11,9 @@ if [ -n "$AUTHORIZED_KEYS" ]; then
   touch $KEYS_FILE
   chmod 600 $KEYS_FILE
 
+  # internal field separator, required to split on \n
+  IFS=$'\n'
+  
   for key in $(echo ${AUTHORIZED_KEYS} | tr "," "\n"); do
     key=$(echo $key | sed -e 's/^ *//' -e 's/ *$//')
     echo "=> Adding public key to .ssh/authorized_keys: $key"
