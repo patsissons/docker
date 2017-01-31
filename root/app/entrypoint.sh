@@ -4,7 +4,7 @@ SSH_CONF=$HOME/.ssh
 KEYS_FILE=$SSH_CONF/authorized_keys
 SCREEN_NAME=irc
 SCREEN_FLAGS=-x
-KEY_PREFIX=command="screen $SCREEN_FLAGS $SCREEN_NAME",no-port-forwarding,no-X11-forwarding,no-pty
+KEY_PREFIX=command=\"screen $SCREEN_FLAGS $SCREEN_NAME\",no-port-forwarding,no-X11-forwarding,no-pty
 
 echo "Starting SSH Server..."
 service ssh start
