@@ -12,7 +12,6 @@ Start the docker container with your public key:
 docker run -d -p 2222:22 -e AUTHORIZED_KEYS="ssh-rsa AAAA...== user@host" -v /etc/localtime:/etc/localtime:ro patsissons/irssi-ssh
 ```
 
-
 Then ssh into the host
 
 ```sh
