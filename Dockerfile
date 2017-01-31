@@ -19,3 +19,4 @@ EXPOSE 22
 
 USER user
 ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["/bin/sh"]
