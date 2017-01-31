@@ -23,10 +23,8 @@ RUN mkdir -p /var/run/sshd
 
 COPY root/ /
 RUN chmod a+x /app/entrypoint.sh
-RUN service ssh start
 
 EXPOSE 22
 
-USER user
 ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["/bin/sh"]

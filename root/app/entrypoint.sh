@@ -25,7 +25,13 @@ else
   exit 1
 fi
 
-echo "Starting irssi in a screen session ($SCREEN_NAME)"
+echo "Starting SSH Server..."
+service ssh start
+
+echo "Switching to user account..."
+su user
+
+echo "Starting irssi in a screen session ($SCREEN_NAME)..."
 screen -S $SCREEN_NAME -d -m irssi
 
 exec "$@"
