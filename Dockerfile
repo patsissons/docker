@@ -14,8 +14,10 @@ RUN apt-get update \
 
 RUN sed -i \
   -e 's~^#AuthorizedKeysFile~AuthorizedKeysFile~g' \
+  -e 's~^#?PubkeyAuthentication.*~PubkeyAuthentication yes~g' \
 	-e 's~^#?PasswordAuthentication.*~PasswordAuthentication no~g' \
-	-e 's~^#?PermitRootLogin.*~PermitRootLogin no~g' \
+  -e 's~^#?ChallengeResponseAuthentication.*~ChallengeResponseAuthentication no~g' \
+  -e 's~^#?UsePAM.*~UsePAM no~g' \
 	/etc/ssh/sshd_config
 
 COPY root/ /
