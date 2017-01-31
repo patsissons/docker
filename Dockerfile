@@ -13,10 +13,9 @@ RUN apt-get update \
  && rm -r /var/lib/apt/lists/*
 
 RUN sed -i \
-	-e 's~^PasswordAuthentication yes~PasswordAuthentication no~g' \
-	-e 's~^#PermitRootLogin yes~PermitRootLogin no~g' \
-	-e 's~^#UseDNS yes~UseDNS no~g' \
-	-e 's~^\(.*\)/usr/libexec/openssh/sftp-server$~\1internal-sftp~g' \
+  -e 's~^#AuthorizedKeysFile~AuthorizedKeysFile~g' \
+	-e 's~^#?PasswordAuthentication.*~PasswordAuthentication no~g' \
+	-e 's~^#?PermitRootLogin.*~PermitRootLogin no~g' \
 	/etc/ssh/sshd_config
 
 RUN mkdir -p /var/run/sshd
