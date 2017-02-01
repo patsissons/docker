@@ -1,7 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 SSH_CONF=$HOME/.ssh
 KEYS_FILE=$SSH_CONF/authorized_keys
+AUTHORIZED_KEYS_PREFIX="command=\"$AUTHORIZED_KEYS_CMD\",$AUTHORIZED_KEYS_OPTS"
+
+echo '' > $KEYS_FILE
 
 echo "Starting SSH Server..."
 service ssh start
@@ -28,8 +31,5 @@ fi
 echo "Fixing Permissions..."
 chown user:user -R $HOME
 
-echo "Switching to user account..."
-su user
-
 echo "Starting irssi in a screen session ($SCREEN_NAME)..."
-screen -S $SCREEN_NAME -m irssi $@
+su -c "screen -S $SCREEN_NAME -m irssi $@" user
