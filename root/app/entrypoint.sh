@@ -31,7 +31,5 @@ fi
 echo "Fixing Permissions..."
 chown user:user -R $HOME
 
-echo "Starting irssi in a screen session ($SCREEN_NAME)..."
-#su -c "screen -S $SCREEN_NAME -m irssi $@" user
-su user
-screen -S $SCREEN_NAME -m irssi $@
+echo "Starting irssi in a screen session ($SCREEN_NAME) $@..."
+su user -c "script -q -c 'screen -S $SCREEN_NAME -m irssi $@' /dev/null"
