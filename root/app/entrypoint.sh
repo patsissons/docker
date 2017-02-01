@@ -2,9 +2,6 @@
 
 SSH_CONF=$HOME/.ssh
 KEYS_FILE=$SSH_CONF/authorized_keys
-SCREEN_NAME=irc
-SCREEN_FLAGS=-x
-KEY_PREFIX=command=\"screen $SCREEN_FLAGS $SCREEN_NAME\",no-port-forwarding,no-X11-forwarding,no-pty
 
 echo "Starting SSH Server..."
 service ssh start
@@ -19,9 +16,9 @@ if [ -n "$AUTHORIZED_KEYS" ]; then
   IFS=$'\n'
 
   for key in $(echo ${AUTHORIZED_KEYS} | tr "," "\n"); do
-    key=$(echo $key | sed -e 's/^ *//' -e 's/ *$//')
+    key="$AUTHORIZED_KEYS_PREFIX $(echo $key | sed -e 's/^ *//' -e 's/ *$//')"
     echo "=> Adding public key to .ssh/authorized_keys: $key"
-    echo "$KEY_PREFIX $key" >> $KEYS_FILE
+    echo "$key" >> $KEYS_FILE
   done
 else
   (>&2 echo "ERROR: No AUTHORIZED_KEYS specified")
@@ -35,6 +32,4 @@ echo "Switching to user account..."
 su user
 
 echo "Starting irssi in a screen session ($SCREEN_NAME)..."
-screen -S $SCREEN_NAME -d -m irssi
-
-exec "$@"
+screen -S $SCREEN_NAME -m irssi $@

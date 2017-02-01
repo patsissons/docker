@@ -1,7 +1,12 @@
 FROM irssi
 MAINTAINER Pat Sissons patricksissons@gmail.com
 
+ENV SCREEN_NAME=irc
+ENV SCREEN_FLAGS=-x
 ENV AUTHORIZED_KEYS=
+ENV AUTHORIZED_KEYS_OPTS='no-port-forwarding,no-X11-forwarding'
+ENV AUTHORIZED_KEYS_CMD="screen $SCREEN_FLAGS $SCREEN_NAME"
+ENV AUTHORIZED_KEYS_PREFIX="command=\"$AUTHORIZED_KEYS_CMD\",$AUTHORIZED_KEYS_OPTS"
 
 USER root
 
@@ -26,4 +31,3 @@ RUN chmod a+x /app/entrypoint.sh
 EXPOSE 22
 
 ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["/bin/sh"]
