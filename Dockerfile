@@ -9,22 +9,22 @@ ENV AUTHORIZED_KEYS_CMD="screen $SCREEN_FLAGS $SCREEN_NAME"
 
 USER root
 
-RUN apt-get update \
- && apt-get install -y -q --no-install-recommends \
-  openssh-server \
-  screen \
- && apt-get clean \
- && rm -r /var/lib/apt/lists/* \
- && sed -i \
-  -e 's~^#AuthorizedKeysFile~AuthorizedKeysFile~g' \
-  -e 's~^#?PubkeyAuthentication.*~PubkeyAuthentication yes~g' \
-	-e 's~^#?PasswordAuthentication.*~PasswordAuthentication no~g' \
-  -e 's~^#?ChallengeResponseAuthentication.*~ChallengeResponseAuthentication no~g' \
-  -e 's~^#?UsePAM.*~UsePAM no~g' \
-	/etc/ssh/sshd_config
-
 COPY root/ /
-#RUN chmod a+x /app/entrypoint.sh
+
+RUN apt-get update \
+  && apt-get install -y -q --no-install-recommends \
+    openssh-server \
+    screen \
+  && apt-get clean \
+  && rm -r /var/lib/apt/lists/* \
+  && sed -i \
+    -e 's~^#AuthorizedKeysFile~AuthorizedKeysFile~g' \
+    -e 's~^#?PubkeyAuthentication.*~PubkeyAuthentication yes~g' \
+    -e 's~^#?PasswordAuthentication.*~PasswordAuthentication no~g' \
+    -e 's~^#?ChallengeResponseAuthentication.*~ChallengeResponseAuthentication no~g' \
+    -e 's~^#?UsePAM.*~UsePAM no~g' \
+    /etc/ssh/sshd_config \
+  && chmod a+x /app/entrypoint.sh
 
 EXPOSE 22
 
